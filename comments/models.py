@@ -80,7 +80,7 @@ class Comment(CommonFields, models.Model):
             'date_posted': self.date_posted,
             'user_name': _('Anonymous') if self.anonymous_content else self.user.username,
             'agreement': self.agreement,
-            'replies': [] # TODO: Add reply support in a moment
+            'replies': [reply.as_api() for reply in self.reply_set.all()],
         }
         return comment
 
@@ -97,6 +97,19 @@ class Reply(CommonFields, models.Model):
         Comment,
         on_delete=models.CASCADE,
     )
+
+    def as_api(self):
+        """
+        Nearly identical to Comment.as_api().
+        """
+        reply = {
+            'id': self.id,
+            'reply': self.text,
+            'date_posted': self.date_posted,
+            'user_name': _('Anonymous') if self.anonymous_content else self.user.username,
+            'agreement': self.agreement,
+        }
+        return reply
 
     def __str__(self):
         return f'{self.user} - {self.date_posted} - {self.text[0:25]}'
