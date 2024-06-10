@@ -1,7 +1,25 @@
 import React, { useState, useEffect } from 'react';
 
+// TODO:
+// - [ ] Need a system of agreement to "vote" on others perspectives.
+
 function agreementToEmoji(agreement) {
-  return `-- Agreement value: ${agreement}`;
+  /**
+   * These `agreement` values match models.py/Comment.AGREEMENT_CHOICES
+   * TODO:  Tooltips to help people understand what the emojis _actually_ mean would
+   *        be helpful since :) can mean more than one thing in various cultures.
+   */
+  if (agreement == 4) {
+    return "🤩";
+  } else if (agreement == 2) {
+    return "🙂";
+  } else if (agreement == 0) {
+    return "😐";
+  } else if (agreement == -2) {
+    return "😒";
+  } else if (agreement == -4) {
+    return "😡";
+  }
 }
 
 function Comments(props) {
