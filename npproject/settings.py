@@ -14,6 +14,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 # - [ ] Add dev.py and production.py settings files for better control over settings.
 #       For now, settings.py is acceptable, though not advised. It's better to separate settings.
 # - [ ] Add a custom user model for better control over user data to support features like badges, points, etc.
+# - [ ] Add JWT authentication for better security and scalability rather than session or cookie based authentication.
 
 
 from pathlib import Path
@@ -45,12 +46,13 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     "rest_framework",
-    # TODO: Add corsheaders package for cross-origin requests.
+    "corsheaders",
 
     "comments",
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -133,3 +135,7 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Allow all origins because we, theoretically, don't know which domains/subdomains will be using the API.
+CORS_ALLOW_ALL_ORIGINS = True
+
