@@ -81,6 +81,12 @@ class Comment(CommonFields, models.Model):
             'user_name': _('Anonymous') if self.anonymous_content else self.user.username,
             'agreement': self.agreement,
             'replies': [reply.as_api() for reply in self.reply_set.all()],
+            # 'reply_agreements': [], # TODO: Cluster the agreement values for the replies.
+                                      # Something like a tuple of tuples. example:
+                                      # ((-2, 100), (0, 50), (2, 365), (4, 1000))
+                                      # ^ That would be 100 'no', 50 'it's complicated', 365 'yes, but with reservations', and 1000 'strongly agree'.
+                                      # This would ideally be cached since those lookups could be large if we did
+                                      # this in real-time..ish.
         }
         return comment
 

@@ -5,6 +5,8 @@ This project will not support creating Comments in the prototype. For that, you'
 
 Minimal Django REST Framework is being used in order to use less "magic" (us Python devs are bad for that ;). Some is still used to decouple the frontend and backend. And also because, theoretically, this project would eventually extend to use proper DRF (`djangorestframework`)
 
+In the source code you will find A LOT of `TODO`'s. These are ideas or best practices. I've opted to write them out so people know what I'm thinking while working on this project.
+
 ### Developer installation
 
 #### Backend
