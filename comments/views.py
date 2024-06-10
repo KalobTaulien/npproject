@@ -91,7 +91,7 @@ class ReplyView(APIView):
         comment = get_object_or_404(Comment, pk=request.data.get("comment_id"))
 
 
-        if settings.OPENAI_API_KEY:
+        if settings.OPENAI_API_KEY and settings.GPT_ENABLED:
             # TODO:
             # - [ ] Time permitting, GPT could also verify if the reply is inline with the emoji/agreement value the user selects.
             response, suggestion = get_gpt_response(comment.text, request.data.get("reply"))

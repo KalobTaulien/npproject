@@ -141,3 +141,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CORS_ALLOW_ALL_ORIGINS = True
 
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+GPT_ENABLED = True # Turn to `False` to disable GPT-3 chat completions.
