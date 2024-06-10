@@ -11,7 +11,7 @@ from .forms import ReplyForm
 
 client = OpenAI(
     # This is the default and can be omitted
-    api_key="",
+    api_key=settings.OPENAI_API_KEY,
 )
 
 # TODO:
