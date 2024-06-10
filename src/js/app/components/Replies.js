@@ -53,6 +53,8 @@ const ReplyForm = ({commentId, replies, originalCommentData, setOriginalCommentD
           reply: reply,
           comment_id: commentId,
           agreement: moodValue, // Described as "moodValue" on the frontend because it's displayed as an emoji.
+          // TODO:
+          // is_anonymous: false, // This is a future feature to allow users to post anonymously. Needs a checkbox.
         })
       })
       .then(response => {
