@@ -16,27 +16,28 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 # - [ ] Add a custom user model for better control over user data to support features like badges, points, etc.
 # - [ ] Add JWT authentication for better security and scalability rather than session or cookie based authentication.
 
-
+import os
+from dotenv import load_dotenv
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Load environment variables from .env file
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-=5ab2tjqkzk9b5_sw973axi0&*mrd7sh#r$rs4qu$d=v@pv1g2"
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG')
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -139,3 +140,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Allow all origins because we, theoretically, don't know which domains/subdomains will be using the API.
 CORS_ALLOW_ALL_ORIGINS = True
 
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')

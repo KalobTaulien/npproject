@@ -14,3 +14,4 @@ build/
 .venv/
 .DS_Store
 db.sqlite3
+.env

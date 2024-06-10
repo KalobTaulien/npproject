@@ -11,6 +11,7 @@ Minimal Django REST Framework is being used in order to use less "magic" (us Pyt
 ```
 python3 -m venv .venv/
 source .venv/bin/activate # Different for Windows
+cp .env.example .env # Update the .env file as needed
 pip install -r requirements.txt
 python manage.py createsuperuser
 python manage.py runserver 0.0.0.0:8000
