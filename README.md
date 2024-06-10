@@ -25,3 +25,8 @@ npm i
 npm run js:dev
 npm run css:dev
 ```
+
+### Why I chose this tech stack:
+1. Database: After talking to a developer with NP and expressing interest in Postgres, I decided to use a codebase that favours Postgres. Despite this actually using sqlite3, swapping it out for Postgres is _very_ easy. If we need live conversations I would have opted in for Firebase.
+2. Django: Proven to scale well, easy to write lots of code that _just works_.
+3. React: Because it's the most friendly on my brain haha

@@ -39,6 +39,8 @@ const ReplyForm = ({commentId, replies, originalCommentData, setOriginalCommentD
   const handleSubmit = (event) => {
     // TODO: Disable the button to prevent multiple submissions, or better yet, add idempotency to the backend.
     event.preventDefault();
+
+    // Unset the error message.
     setErrorMessage('');
 
     if(reply.length < 50) {
@@ -48,9 +50,10 @@ const ReplyForm = ({commentId, replies, originalCommentData, setOriginalCommentD
       setErrorMessage('Reply must be less than 5000 characters long');
       return false;
     } else {
+      // Basic frontend validation passed before hitting the backend.
+      // Clean the error message while this is being submitted.
       setErrorMessage('');
     }
-
 
     fetch(`http://localhost:8000/api/v1/comments/${commentId}/`, {
       method: 'POST',
@@ -63,13 +66,33 @@ const ReplyForm = ({commentId, replies, originalCommentData, setOriginalCommentD
       })
     })
     .then(response => {
-      return response.json(); // Only parse JSON if response is ok
+      if (!response.ok) { // Checks if the response status code is not in the 200..ish range
+        return response.json().then(err => {
+          // Throws the error JSON which can be caught in the catch block
+          // Then we can display that error.
+          throw err;
+        });
+      }
+
+      // Only parse JSON if response is ok
+      return response.json();
     })
-    .then(data => {
-      console.log(data)
+    .then(newReply => {
+      setReply('');
+      // Update the entire comment and data structure with the new reply.
+      setOriginalCommentData(originalCommentData => originalCommentData.map(comment => {
+        if (comment.id === commentId) {
+          return {
+            ...comment,
+            replies: [...comment.replies, newReply]
+          };
+        }
+        return comment;
+      }));
     })
     .catch((error) => {
       // Set the error message
+      setErrorMessage(error)
     });
   }
 
