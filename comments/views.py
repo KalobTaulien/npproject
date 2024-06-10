@@ -1,4 +1,3 @@
-from django.shortcuts import get_object_or_404
 from rest_framework.parsers import JSONParser
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -16,7 +15,9 @@ class CommentView(APIView):
         return Comment.objects.all().order_by("-date_posted")
 
     def get(self, request, *args, **kwargs):
-        return super.get(request, *args, **kwargs)
+        comments = self.get_queryset()
+        comments = [comment.as_api() for comment in comments]
+        return Response(comments)
 
     # def post(self, request, *args, **kwargs):
     #     # We _could_ support posting to /comments/, but for now this is disabled.

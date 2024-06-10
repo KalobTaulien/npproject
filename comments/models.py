@@ -66,6 +66,24 @@ class Comment(CommonFields, models.Model):
     # - [ ] Add a site/site-url field for comment look ups on specific websites.
     #       This way the comments being stored can be filtered out by our partners.
 
+    def as_api(self):
+        """
+        Using Django Rest Framework would be best for security and efficiency.
+        But for the sake of writing readable code for non-Django developers, this method is used.
+
+        # TODO:
+        - [ ] `.as_api()` could be moved into `CommonFields` as an Interface with `super().as_api()` being used.
+        """
+        comment = {
+            'id': self.id,
+            'text': self.text,
+            'date_posted': self.date_posted,
+            'user_name': _('Anonymous') if self.anonymous_content else self.user.username,
+            'agreement': self.agreement,
+            'replies': [] # TODO: Add reply support in a moment
+        }
+        return comment
+
     def __str__(self):
         return f'{self.user} - {self.date_posted} - {self.text[0:25]}'
 
