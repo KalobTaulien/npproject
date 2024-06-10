@@ -1,3 +1,10 @@
+## Constructive Conversation Commenting.
+
+### Notes:
+This project will not support creating Comments in the prototype. For that, you'll need to run the backend and create the first comment via the Django Admin. This is intentional to reduce peer review overhead (and to stay within the allotted time).
+
+Minimal Django REST Framework is being used in order to use less "magic" (us Python devs are bad for that ;). Some is still used to decouple the frontend and backend. And also because, theoretically, this project would eventually extend to use proper DRF (`djangorestframework`)
+
 ### Developer installation
 
 #### Backend
