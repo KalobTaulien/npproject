@@ -7,6 +7,10 @@ Minimal Django REST Framework is being used in order to use less "magic" (us Pyt
 
 In the source code you will find A LOT of `TODO`'s. These are ideas or best practices. I've opted to write them out so people know what I'm thinking while working on this project.
 
+I did _not_ focus too much on the design. I am not to be trusted with major design decisions 🙂
+
+In order to test this repo, you'll want Python 3.9 or newer and an OpenAI API Key
+
 ### Developer installation
 
 #### Backend
