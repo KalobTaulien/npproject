@@ -131,6 +131,10 @@ class ReplyView(APIView):
             reply.save()
             return Response(reply.as_api())
         else:
+            # TODO: In my opinion, error validation is VERY important. If I write a well thought out comment or reply,
+            #       and it fails to go through with no support, I'm likely to leave the site/service and never return.
+            #       So this should have _a lot_ of care and attention to detail. Just my 2 cents based on
+            #       personal frusstrations. Users first, always.
             print("Error, Will Robinson!")
             return Response({"error": form.errors}, status=400)
 
