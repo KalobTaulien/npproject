@@ -16,9 +16,9 @@ client = OpenAI(
 
 # TODO:
 # - [ ] Add this function to utils.py or something similar
-def get_gpt_response(comment: str, reply: str, model='gpt-3.5-turbo') -> str:
+def get_gpt_response(comment: str, reply: str, model='gpt-3.5-turbo') -> tuple:
     """
-    Get a string response from OpenAI's GPT-3.5 API (default). Swappable for other models.
+    Get a tuple response from OpenAI's GPT-3.5 API (default). Swappable for other models.
 
     Ideally, GPT will return a response and a suggestion in the form of: "response::suggestion". Example:
     ```
