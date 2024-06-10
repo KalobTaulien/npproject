@@ -64,3 +64,6 @@ class Reply(CommonFields, models.Model):
 
     def __str__(self):
         return f'{self.user} - {self.date_posted} - {self.reply[0:25]}'
+
+    class Meta:
+        verbose_name_plural = "Replies"
