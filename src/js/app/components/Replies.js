@@ -101,7 +101,7 @@ const ReplyForm = ({commentId, replies, originalCommentData, setOriginalCommentD
         <div className="mt-4">
           {errorMessage && <div className="text-red-500 text-sm my-4">{errorMessage}</div>}
           <div className="inline-flex gap-4 items-center justify-between">
-            <button type="submit" disabled={isDisabled} className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Reply</button>
+            <button type="submit" disabled={isDisabled} className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-slate-100 disabled:text-black disabled:cursor-not-allowed">Reply</button>
             <Slider moodValue={moodValue} setMoodValue={setMoodValue} />
           </div>
         </div>
