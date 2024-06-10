@@ -67,7 +67,7 @@ class Comment(CommonFields, models.Model):
     #       This way the comments being stored can be filtered out by our partners.
 
     def __str__(self):
-        return f'{self.user} - {self.date_posted} - {self.comment[0:25]}'
+        return f'{self.user} - {self.date_posted} - {self.text[0:25]}'
 
 
 class Reply(CommonFields, models.Model):
@@ -81,7 +81,7 @@ class Reply(CommonFields, models.Model):
     )
 
     def __str__(self):
-        return f'{self.user} - {self.date_posted} - {self.reply[0:25]}'
+        return f'{self.user} - {self.date_posted} - {self.text[0:25]}'
 
     class Meta:
         verbose_name_plural = "Replies"
