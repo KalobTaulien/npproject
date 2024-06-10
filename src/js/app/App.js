@@ -27,15 +27,63 @@ const ReplyForm = ({commentId, replies, originalCommentData, setOriginalCommentD
   /**
    * Using a destructed function based component to mix things up a bit (for peer reviews)
    */
+  // Stays local to the Comment the Reply will be sent to.
+  const [reply, setReply] = useState('');
+  // To help direct users. Nothing is more frustrating than poor functionality with no user guidance :P
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleChange = (event) => {
+    setReply(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    // TODO: Disable the button to prevent multiple submissions, or better yet, add idempotency to the backend.
+    event.preventDefault();
+    setErrorMessage('');
+
+    if(reply.length < 50) {
+      setErrorMessage('Reply must be at least 50 characters long');
+      return false;
+    } else if(reply.length > 5000) {
+      setErrorMessage('Reply must be less than 5000 characters long');
+      return false;
+    } else {
+      setErrorMessage('');
+    }
+
+
+    fetch(`http://localhost:8000/api/v1/comments/${commentId}/`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        reply: reply,
+        comment_id: commentId,
+      })
+    })
+    .then(response => {
+      return response.json(); // Only parse JSON if response is ok
+    })
+    .then(data => {
+      console.log(data)
+    })
+    .catch((error) => {
+      // Set the error message
+    });
+  }
+
+
   return (
     // The styling is 100% from Tailwind UI. What a beautiful time saver that library is <3
-    <form>
+    <form onSubmit={handleSubmit}>
       <label htmlFor="comment" className="block text-sm font-medium leading-6 text-gray-900">Add your reply</label>
       <div className="mt-2">
         {/* TODO: Apply autoexpanding Textarea to signal that users long form conversations are welcomed. */}
-        <textarea rows="4" name="comment" id="comment" required="required" minLength={50} maxLength={5000}className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+        <textarea rows="4" name="comment" id="comment" required="required" minLength={50} maxLength={5000}className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" onChange={handleChange} value={reply}></textarea>
       </div>
       <div className="mt-4">
+        {errorMessage && <div className="text-red-500 text-sm my-4">{errorMessage}</div>}
         <button type="submit" className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Reply</button>
       </div>
     </form>
