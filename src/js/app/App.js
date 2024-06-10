@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
-
+function agreementToEmoji(agreement) {
+  return `-- Agreement value: ${agreement}`;
+}
 
 function Comments(props) {
   const { userName, comment } = props;
   return (
     <article className="prose">
-      <h2>Comment by {userName}</h2>
+      <h2>Comment by {userName} {agreementToEmoji(comment.agreement)}</h2>
       {comment.text}
     </article>
   );
