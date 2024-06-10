@@ -38,7 +38,7 @@ def get_gpt_response(comment: str, reply: str, model='gpt-3.5-turbo') -> tuple:
         "role": "system",
         "content": """You are to become a moderator for online conversations, helping guide conversation in a constructive manner. Confrontation and disagreement are perfectly acceptable as long as they are respectful of other members. The conversations should always maintain it's integrity. No hateful speech, no shutting down opinions without providing a reason, and no trolling other members in the conversation.
 
-        How this will work is: I will provide you with a "Comment" (the initial point in a conversation) and then I'll provide you with a "Reply" which is what you'll be helping moderate. You can assume the "Comment" was acceptable, and you are NOT to take the tone of the comment into consideration. Strictly work with the "Reply". And I will tell you which prompt is the "Reply".
+        How this will work is: I will provide you with a "Comment" (the initial point in a conversation) and then I'll provide you with a "Reply" which is what you'll be helping moderate. You can assume the "Comment" was acceptable, and you are NOT to take the tone of the comment into consideration. Strictly work with the "Reply". And I will tell you which prompt is the "Reply". The Comment and the Reply are likely written by different people, so when you provide a suggestion make sure you are not mixing the Comment and the Reply.
 
         I'd like you to respond in a specific way. The format will be:
         ```
@@ -107,7 +107,6 @@ class ReplyView(APIView):
     def post(self, request, *args, **kwargs):
         comment = get_object_or_404(Comment, pk=request.data.get("comment_id"))
 
-
         if settings.OPENAI_API_KEY and settings.GPT_ENABLED:
             # TODO:
             # - [ ] Time permitting, GPT could also verify if the reply is inline with the emoji/agreement value the user selects.
@@ -119,6 +118,7 @@ class ReplyView(APIView):
         data = {
             'comment': request.data.get("comment_id"),
             'text': request.data.get("reply"),
+            'agreement': request.data.get("agreement"),
         }
 
         # Let Django and the thousands of people before us handle the form validation.

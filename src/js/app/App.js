@@ -44,6 +44,7 @@ const ReplyForm = ({commentId, replies, originalCommentData, setOriginalCommentD
   /**
    * Using a destructed function based component to mix things up a bit (for peer reviews)
    */
+
   // Stays local to the Comment the Reply will be sent to.
   const [reply, setReply] = useState('');
   // To help direct users. Nothing is more frustrating than poor functionality with no user guidance :P
@@ -52,6 +53,8 @@ const ReplyForm = ({commentId, replies, originalCommentData, setOriginalCommentD
   // fetch request in this component needs access to the mood value. This is also called `agreement`
   // in the Reply/Comment models in the backend
   const [moodValue, setMoodValue] = useState(0);
+  // Button disabled state
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const handleChange = (event) => {
     setReply(event.target.value);
@@ -63,6 +66,7 @@ const ReplyForm = ({commentId, replies, originalCommentData, setOriginalCommentD
 
     // Unset the error message.
     setErrorMessage('');
+    setIsDisabled(true);
 
     if(reply.length < 50) {
       setErrorMessage('Reply must be at least 50 characters long');
@@ -84,6 +88,7 @@ const ReplyForm = ({commentId, replies, originalCommentData, setOriginalCommentD
       body: JSON.stringify({
         reply: reply,
         comment_id: commentId,
+        agreement: moodValue, // Described as "moodValue" on the frontend because it's displayed as an emoji.
       })
     })
     .then(response => {
@@ -114,6 +119,9 @@ const ReplyForm = ({commentId, replies, originalCommentData, setOriginalCommentD
     .catch((error) => {
       // Set the error message
       setErrorMessage(error)
+    })
+    .finally(() => {
+      setIsDisabled(false);
     });
   }
 
@@ -129,7 +137,7 @@ const ReplyForm = ({commentId, replies, originalCommentData, setOriginalCommentD
       <div className="mt-4">
         {errorMessage && <div className="text-red-500 text-sm my-4">{errorMessage}</div>}
         <div className="inline-flex gap-4 items-center justify-between">
-          <button type="submit" className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Reply</button>
+          <button type="submit" disabled={isDisabled} className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Reply</button>
           <Slider moodValue={moodValue} setMoodValue={setMoodValue} />
         </div>
       </div>
