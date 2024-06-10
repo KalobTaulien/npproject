@@ -12,3 +12,4 @@ dist/
 build/
 .env
 .venv/
+.DS_Store

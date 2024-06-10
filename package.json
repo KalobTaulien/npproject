@@ -1,0 +1,44 @@
+{
+  "name": "npcomments",
+  "version": "1.0.0",
+  "description": "Guide to constructive conversations ",
+  "main": "index.js",
+  "scripts": {
+    "js:dev": "webpack --mode development --watch",
+    "js:prod": "webpack --mode production",
+    "css:dev": "npx tailwindcss -i ./src/css/index.css -o ./prod/styles.css --watch",
+    "css:prod": "npx tailwindcss -i ./src/css/index.css -o ./prod/styles.css --minify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KalobTaulien/npproject.git"
+  },
+  "author": "Kalob Taulien",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KalobTaulien/npproject/issues"
+  },
+  "homepage": "https://github.com/KalobTaulien/npproject#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.4.4",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
+    "@babel/core": "^7.23.9",
+    "@babel/preset-env": "^7.23.9",
+    "@babel/preset-react": "^7.23.3",
+    "autoprefixer": "^10.4.16",
+    "babel-loader": "^9.1.3",
+    "css-loader": "^6.9.0",
+    "mini-css-extract-plugin": "^2.7.7",
+    "postcss-import": "^16.0.0",
+    "postcss-loader": "^8.0.0",
+    "style-loader": "^3.3.4",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.3.1",
+    "react-expanding-textarea": "^2.3.6"
+  }
+}
