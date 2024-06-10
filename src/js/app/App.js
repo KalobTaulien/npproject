@@ -23,6 +23,23 @@ function agreementToEmoji(agreement) {
   }
 }
 
+const Slider = ({ moodValue, setMoodValue} ) => {
+  const [moodDisplay, setMoodDisplay] = useState("😐");
+
+  function handleChange(e) {
+    const val = e.target.value;
+    setMoodValue(val);
+    setMoodDisplay(agreementToEmoji(val));
+  }
+
+  return (
+    <div className="inline-flex text-xl">
+      <input type="range" value={moodValue} step="2" min="-4" max="4" onChange={handleChange} />
+      <p className="text-2xl">{moodDisplay}</p>
+    </div>
+  );
+}
+
 const ReplyForm = ({commentId, replies, originalCommentData, setOriginalCommentData}) => {
   /**
    * Using a destructed function based component to mix things up a bit (for peer reviews)
@@ -31,6 +48,10 @@ const ReplyForm = ({commentId, replies, originalCommentData, setOriginalCommentD
   const [reply, setReply] = useState('');
   // To help direct users. Nothing is more frustrating than poor functionality with no user guidance :P
   const [errorMessage, setErrorMessage] = useState('');
+  // The mood value is used to determine the emoji to display. I've set it here rather than in <Slider /> because the
+  // fetch request in this component needs access to the mood value. This is also called `agreement`
+  // in the Reply/Comment models in the backend
+  const [moodValue, setMoodValue] = useState(0);
 
   const handleChange = (event) => {
     setReply(event.target.value);
@@ -107,7 +128,10 @@ const ReplyForm = ({commentId, replies, originalCommentData, setOriginalCommentD
       </div>
       <div className="mt-4">
         {errorMessage && <div className="text-red-500 text-sm my-4">{errorMessage}</div>}
-        <button type="submit" className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Reply</button>
+        <div className="inline-flex gap-4 items-center justify-between">
+          <button type="submit" className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Reply</button>
+          <Slider moodValue={moodValue} setMoodValue={setMoodValue} />
+        </div>
       </div>
     </form>
   )
