@@ -1,6 +1,18 @@
 import React, { useState, useEffect } from 'react';
 
 
+
+function Comments(props) {
+  const { userName, comment } = props;
+  return (
+    <article className="prose">
+      <h2>Comment by {userName}</h2>
+      {comment.text}
+    </article>
+  );
+}
+
+
 function App(props) {
     const [originalCommentData, setOriginalCommentData] = useState([]);
 
@@ -18,7 +30,7 @@ function App(props) {
         {originalCommentData && (
           <>
             {originalCommentData.map((comment, index) => (
-              <div>{comment.text} by {comment.user_name}</div>
+              <Comments key={index} userName={comment.user_name} comment={comment} />
             ))}
           </>
         )}
